@@ -17,7 +17,7 @@
             </vmap:VASTAdData>
         </vmap:AdSource>
     </vmap:AdBreak>
-    <vmap:AdBreak breakId="67d32666-1613-4a8d-b7f9-34a8064770b3" breakType="linear" timeOffset="50%">
+    <vmap:AdBreak breakId="67d32666-1613-4a8d-b7f9-34a8064770b3" breakType="linear" timeOffset="00:00:10">
         <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="907710148">
             <vmap:VASTAdData>
                 <VAST version="3.0" xmlns="http://www.iab.net/videosuite/vast">

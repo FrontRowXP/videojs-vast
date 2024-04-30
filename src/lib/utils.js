@@ -102,9 +102,9 @@ export const getMidrolls = (adBreaks) => {
       .reduce((prev, current) => ([
         ...prev,
         {
-          timeOffset: current.timeOffset,
-          vastUrl: current.adSource.adTagURI?.uri,
-          vastData: current.adSource.vastAdData,
+          timeOffset: current.timeOffset || current.insertAt,
+          vastUrl: current.url,
+          vastData: current.adSource?.vastAdData,
         },
       ]), []);
   }
@@ -113,14 +113,14 @@ export const getMidrolls = (adBreaks) => {
 
 export const getPreroll = (adBreaks) => {
   if (adBreaks) {
-    return adBreaks.filter((adBreak) => ['start', '0%', '00:00:00'].includes(adBreak.timeOffset))[0];
+    return adBreaks.filter((adBreak) => ['start', '0%', '00:00:00'].includes(adBreak.timeOffset));
   }
   return false;
 };
 
 export const getPostroll = (adBreaks) => {
   if (adBreaks) {
-    return adBreaks.filter((adBreak) => ['end', '100%'].includes(adBreak.timeOffset))[0];
+    return adBreaks.filter((adBreak) => ['end', '100%'].includes(adBreak.timeOffset));
   }
   return false;
 };

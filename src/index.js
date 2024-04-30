@@ -664,30 +664,65 @@ class Vast extends Plugin {
   async handleVMAP(vmapUrl) {
     try {
       const vmap = await fetchVmapUrl(vmapUrl);
+
       if (vmap.adBreaks && vmap.adBreaks.length > 0) {
         this.addEventsListeners();
         // handle preroll
-        const preroll = getPreroll(vmap.adBreaks);
-        if (!preroll) {
+        const prerolls = getPreroll(vmap.adBreaks);
+
+        console.log(prerolls);
+
+        if (prerolls.length === 0) {
           this.disablePreroll();
-        } else if (preroll.adSource?.adTagURI?.uri) {
-          // load vast preroll url
-          await this.handleVAST(preroll.adSource.adTagURI.uri);
-          // a preroll has been found, trigger adsready
-          this.player.trigger('adsready');
-        } else if (preroll.adSource.vastAdData) {
-          this.parseInlineVastData(preroll.adSource?.vastAdData, 'preroll');
+        } else if (prerolls.length > 1) {
+          prerolls.forEach(async (preroll) => {
+            if (preroll.adSource.vastAdData) {
+              this.parseInlineVastData(preroll.adSource?.vastAdData, 'preroll');
+            } else {
+              // load vast preroll url
+              await this.handleVAST(preroll.adSource.adTagURI.uri);
+              // a preroll has been found, trigger adsready
+              this.player.trigger('adsready');
+            }
+          });
+        } else if (prerolls.length === 1) {
+          if (prerolls[0].adSource?.adTagURI?.uri) {
+            // load vast preroll url
+            await this.handleVAST(prerolls[0].adSource.adTagURI.uri);
+            // a preroll has been found, trigger adsready
+            this.player.trigger('adsready');
+          } else if (prerolls[0].adSource.vastAdData) {
+            this.parseInlineVastData(prerolls[0].adSource?.vastAdData, 'preroll');
+          }
         }
         // handle postroll
-        const postroll = getPostroll(vmap.adBreaks);
-        if (!postroll) {
-          this.disablePostroll();
-        } else if (postroll.adSource?.adTagURI?.uri) {
-          this.postRollUrl = postroll.adSource.adTagURI.uri;
-        } else if (postroll.adSource?.vastAdData) {
-          this.parseInlineVastData(postroll.adSource?.vastAdData, 'postroll');
+        const postrolls = getPostroll(vmap.adBreaks);
+
+        if (postrolls.length === 0) {
+          this.disablePreroll();
+        } else if (postrolls.length > 1) {
+          postrolls.forEach(async (postroll) => {
+            if (postroll.adSource.vastAdData) {
+              this.parseInlineVastData(postroll.adSource?.vastAdData, 'postroll');
+            } else {
+              // load vast postroll url
+              await this.handleVAST(postroll.adSource.adTagURI.uri);
+              // a postroll has been found, trigger adsready
+              this.player.trigger('adsready');
+            }
+          });
+        } else if (postrolls.length === 1) {
+          if (postrolls[0].adSource?.adTagURI?.uri) {
+            // load vast preroll url
+            // await this.handleVAST(postrolls[0].adSource.adTagURI.uri);
+            this.postRollUrl = postrolls[0].adSource.adTagURI.uri;
+          } else if (postrolls[0].adSource.vastAdData) {
+            this.parseInlineVastData(postrolls[0].adSource?.vastAdData, 'postroll');
+          }
         }
+
         this.watchForProgress = getMidrolls(vmap.adBreaks);
+
         if (this.watchForProgress.length > 0) {
           // listen on regular content for midroll handling
           this.player.on('timeupdate', this.onProgress);
