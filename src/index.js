@@ -11,8 +11,10 @@ import {
 import {
   getMidrolls, getPostroll, getPreroll, getBestCtaUrl,
 } from './lib/utils';
+import { CustomHeadersPatch } from './lib/customHeadersPatch';
 
 const Plugin = videojs.getPlugin('plugin');
+const customHeadersPatch = new CustomHeadersPatch();
 
 class Vast extends Plugin {
   constructor(player, options) {
@@ -23,6 +25,7 @@ class Vast extends Plugin {
     const defaultOptions = {
       vastUrl: false,
       vmapUrl: false,
+      fetchHeaders: {},
       verificationTimeout: 2000,
       addCtaClickZone: true,
       addSkipButton: true,
@@ -60,6 +63,10 @@ class Vast extends Plugin {
       debug: this.options.debug,
       timeout: this.options.timeout,
     };
+
+    if (this.options.fetchHeaders) {
+      customHeadersPatch.updateHeaders(this.options.fetchHeaders);
+    }
 
     // initialize videojs-contrib-ads
     if (!this.player.ads) return;
