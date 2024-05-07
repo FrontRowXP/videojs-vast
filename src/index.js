@@ -670,7 +670,8 @@ class Vast extends Plugin {
         // handle preroll
         const prerolls = getPreroll(vmap.adBreaks);
 
-        console.log(prerolls);
+        console.log('prerolls', prerolls);
+        window.log(prerolls);
 
         if (prerolls.length === 0) {
           this.disablePreroll();

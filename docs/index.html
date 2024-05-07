@@ -4,7 +4,11 @@
 
 <body>
   <video id="my-video" class="video-js" controls preload="auto" width="640" height="360">
-    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+    <!-- <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" /> -->
+    <source
+      src="https://dev.frontrow.cc/channels/12884944665/VIDEO/236223305209/hls.m3u8"
+      type="application/x-mpegURL"
+    />
     <p class="vjs-no-js">
       To view this video please enable JavaScript, and consider upgrading to a web browser that
       <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -34,11 +38,12 @@
       onchange="document.location.href = '?vmapUrl=' + encodeURIComponent(this.value)"
     >
       <option value="">Select a VMAP</option>
-      <option value="https://dev.frontrow.cc/channels/12884944665/VIDEO/236223295287/vmap.xml">Remote</option>
+      <option value="https://local.benpelo.com/channels/12884944665/VIDEO/236223295287/vmap.xml">Remote</option>
       <option value="/fixtures/vmap.xml">Vmap 'full'</option>
       <option value="/fixtures/vmap-inline.xml">Vmap inline</option>
     </select>
   </p>
+  <pre id="console"></pre>
   <script src="demo.js"></script>
   <script>
     document.getElementById('vastUrl').value = getURLParameter('vastUrl')

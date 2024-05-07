@@ -1,30 +1,44 @@
-<vmap:VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0">
-<vmap:AdBreak timeOffset="start" breakType="linear" breakId="preroll">
-<vmap:AdSource id="preroll-ads" allowMultipleAds="false" followRedirects="true">
-<vmap:AdTagURI templateType="vast3">
-/fixtures/vast.xml
-</vmap:AdTagURI>
-</vmap:AdSource>
-</vmap:AdBreak>
-<vmap:AdBreak timeOffset="00:00:03.123" breakType="linear" breakId="midroll">
-<vmap:AdSource id="midroll-ads" allowMultipleAds="false" followRedirects="true">
-<vmap:AdTagURI templateType="vast3">
-/fixtures/vast.xml
-</vmap:AdTagURI>
-</vmap:AdSource>
-</vmap:AdBreak>
-<vmap:AdBreak timeOffset="00:00:06.000" breakType="linear" breakId="midroll">
-<vmap:AdSource id="midroll-ads" allowMultipleAds="false" followRedirects="true">
-<vmap:AdTagURI templateType="vast3">
-/fixtures/vast.xml
-</vmap:AdTagURI>
-</vmap:AdSource>
-</vmap:AdBreak>
-<vmap:AdBreak timeOffset="end" breakType="linear" breakId="postroll">
-<vmap:AdSource id="postroll" allowMultipleAds="false" followRedirects="true">
-<vmap:AdTagURI templateType="vast3">
-/fixtures/vast.xml
-</vmap:AdTagURI>
-</vmap:AdSource>
-</vmap:AdBreak>
-</vmap:VMAP>
+<VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0">
+	<AdBreak timeOffset="start" breakType="linear" breakId="preroll">
+		<AdSource id="preroll-ads" allowMultipleAds="true" followRedirects="true" skipoffset="00:00:02">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+	<AdBreak timeOffset="start" breakType="linear" breakId="preroll">
+		<AdSource id="preroll-ads" allowMultipleAds="true" followRedirects="true" skipoffset="00:00:02">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+	<AdBreak timeOffset="00:00:03.123" breakType="linear" breakId="midroll">
+		<AdSource id="midroll-ads" allowMultipleAds="true" followRedirects="true">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+	<AdBreak timeOffset="00:00:06.000" breakType="linear" breakId="midroll">
+		<AdSource id="midroll-ads" allowMultipleAds="true" followRedirects="true">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+	<AdBreak timeOffset="end" breakType="linear" breakId="postroll">
+		<AdSource id="postroll" allowMultipleAds="true" followRedirects="true">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+	<AdBreak timeOffset="end" breakType="linear" breakId="postroll">
+		<AdSource id="postroll" allowMultipleAds="true" followRedirects="true">
+			<AdTagURI templateType="vast3">
+				/fixtures/vast.xml
+			</AdTagURI>
+		</AdSource>
+	</AdBreak>
+</VMAP>
